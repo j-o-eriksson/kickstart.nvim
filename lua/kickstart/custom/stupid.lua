@@ -1,4 +1,4 @@
-local function mysplit(inputstr, sep)
+local splitstr = function(inputstr, sep)
   if sep == nil then
     sep = '%s'
   end
@@ -9,9 +9,9 @@ local function mysplit(inputstr, sep)
   return t
 end
 
-local myfunc = function()
+local gitlog = function()
   local str = vim.fn.system { 'git', 'log', '--pretty=oneline', '--abbrev-commit', '--', '.' }
-  return mysplit(str, '\n')
+  return splitstr(str, '\n')
 end
 
 local commit_diff = function(opts)
@@ -19,14 +19,14 @@ local commit_diff = function(opts)
   require('telescope.pickers')
     .new(opts, {
       prompt_taitle = 'Git Difference',
-      finder = require('telescope.finders').new_dynamic { fn = myfunc },
+      finder = require('telescope.finders').new_dynamic { fn = gitlog },
       sorter = require('telescope.config').values.generic_sorter(opts),
       attach_mappings = function(prompt_bufnr, map)
         local actions = require 'telescope.actions'
         actions.select_default:replace(function()
           actions.close(prompt_bufnr)
           local selection = require('telescope.actions.state').get_selected_entry()
-          local githash = mysplit(selection[1], ' ')[1]
+          local githash = splitstr(selection[1], ' ')[1]
           vim.fn.execute('DiffviewOpen ' .. githash .. '^!')
         end)
         return true
