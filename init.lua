@@ -396,6 +396,9 @@ require('lazy').setup({
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
+      local stupid = require 'kickstart.custom.stupid'
+      vim.keymap.set('n', '<leader>sc', stupid.run, { desc = '[S]earch [C]ommit history' })
+
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
