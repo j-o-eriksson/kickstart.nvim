@@ -17,7 +17,11 @@ end
 
 local myfunc = function()
   local str = vim.fn.system { 'git', 'log', '--pretty=oneline', '--abbrev-commit', '--', '.' }
-  return mysplit(str, '\n')
+  local out = {}
+  for i, v in ipairs(mysplit(str, '\n')) do
+    out[i] = i .. ' ' .. v
+  end
+  return out
 end
 
 local commit_diff = function(opts)
@@ -31,8 +35,8 @@ local commit_diff = function(opts)
         actions.select_default:replace(function()
           actions.close(prompt_bufnr)
           local selection = action_state.get_selected_entry()
-          local githash = mysplit(selection[1], ' ')[1]
-          vim.fn.execute('DiffviewOpen ' .. githash)
+          local idx = mysplit(selection[1], ' ')[1]
+          vim.fn.execute('DiffviewOpen ' .. 'HEAD~' .. idx .. '..HEAD~' .. idx - 1)
         end)
         return true
       end,
