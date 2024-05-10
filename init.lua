@@ -168,6 +168,7 @@ vim.opt.scrolloff = 10
 --  See `:help vim.keymap.set()`
 vim.keymap.set('i', '<Tab>', '<Esc>')
 vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<C-m>', '<cmd>NvimTreeFindFileToggle<CR>')
 vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<CR>')
 vim.keymap.set('n', '<leader>do', '<cmd>DiffviewOpen<CR>')
 vim.keymap.set('n', '<leader>dp', '<cmd>DiffviewOpen HEAD~1<CR>')
