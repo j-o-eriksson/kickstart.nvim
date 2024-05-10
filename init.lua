@@ -123,7 +123,7 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -171,6 +171,8 @@ vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<CR>')
 vim.keymap.set('n', '<leader>do', '<cmd>DiffviewOpen<CR>')
 vim.keymap.set('n', '<leader>dp', '<cmd>DiffviewOpen HEAD~1<CR>')
+vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>y', '"+Y')
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
