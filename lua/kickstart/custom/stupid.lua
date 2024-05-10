@@ -1,17 +1,6 @@
-local splitstr = function(inputstr, sep)
-  if sep == nil then
-    sep = '%s'
-  end
-  local t = {}
-  for str in string.gmatch(inputstr, '([^' .. sep .. ']+)') do
-    table.insert(t, str)
-  end
-  return t
-end
-
 local gitlog = function()
   local str = vim.fn.system { 'git', 'log', '--pretty=oneline', '--abbrev-commit', '--', '.' }
-  return splitstr(str, '\n')
+  return vim.split(str, '\n')
 end
 
 local commit_diff = function(opts)
@@ -26,7 +15,7 @@ local commit_diff = function(opts)
         actions.select_default:replace(function()
           actions.close(prompt_bufnr)
           local selection = require('telescope.actions.state').get_selected_entry()
-          local githash = splitstr(selection[1], ' ')[1]
+          local githash = vim.split(selection[1], ' ')[1]
           vim.fn.execute('DiffviewOpen ' .. githash .. '^!')
         end)
         return true
